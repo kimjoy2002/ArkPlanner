@@ -62,7 +62,8 @@ class MaterialPlanning(object):
         stage_dct = {}
         for dct in material_probs['matrix']:
             item_dct[dct['item']['itemId']]=dct['item']['name']
-            stage_dct[dct['stage']['code']]=dct['stage']['code']
+            if dct['stage']['zoneId'] in ('main_0', 'main_1', 'main_2', 'main_3', 'main_4'): # only 0~4 stage in korea server
+                stage_dct[dct['stage']['code']]=dct['stage']['code']
         item_dct.update(additional_items)
         
         # To construct mapping from id to item names.
@@ -113,7 +114,7 @@ class MaterialPlanning(object):
 
         # Hardcoding: extra gold farmed.
         cost_gold_offset[self.stage_dct_rv['S4-6']] -= 3228 * gold_unit
-        cost_gold_offset[self.stage_dct_rv['S5-2']] -= 2484 * gold_unit
+        # cost_gold_offset[self.stage_dct_rv['S5-2']] -= 2484 * gold_unit
 
         # To build equavalence relationship from convert_rule_dct.
         self.convertions_dct = {}
